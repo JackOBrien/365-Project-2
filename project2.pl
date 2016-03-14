@@ -23,3 +23,16 @@ class(330,Systems Analysis and Design,9:00 am - 9:50 am,MWF,MAK D1117,Dr. Du,IS)
 class(661,Medical and BioInformatics,6:00 pm - 8:50 pm,T,EC 612,Dr. J. Leidig,CIS).
 class(671,Information Visualization,6:00 pm - 8:50 pm,R,EC 612,Dr. J. Leidig,CIS).
 class(691,MBI Capstone,6:00 pm - 8:50 pm,M,EC 612,Dr. J. Leidig,CIS).
+
+student(Jim,467,CS Project).
+student(Jim,452,OS Concepts).
+student(Jim,457,Data Communications).
+student(Pam,437,Distributed Computing).
+student(Pam,457,Data Communications).
+student(Pam,452,OS Concepts).
+student(Kara Thrace,467,CS Project).
+student(Kara Thrace,452,OS Concepts).
+student(Kara Thrace,365,AI).
+student(Gaius Baltar,463,IS Project).
+student(Gaius Baltar,460,MIS).
+student(Gaius Baltar,375,Wireless Networking Systems).
