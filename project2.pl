@@ -1,3 +1,12 @@
+/************************************************
+ * CIS 365 - 01: Project 2
+ * Logical Reasoning with Prologue
+ *
+ * Jack O'Brien & Jacob McKim
+ * March 17, 2016
+ ***********************************************/
+
+
 /*------- Facts -------*/
 /* class(Number, Name, Time, Days, Location, Professor, Major) */
 class('467', 'CS Project', '10:00 am - 10:50 am', 'MWF', 'MAK B1118', 'Dr. Engelsma', 'CS').
@@ -58,20 +67,35 @@ teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,
 
 /*------- Goals -------*/
 print_solution :-
+
+/* Will find the set of all class with Dr. J. Leidig
+ * as the teacher */
 write(' 1. What does Dr. J. Leidig teach?'), nl,
 setof(X, teaches('Dr. J. Leidig', X), Query1),
 write(Query1), nl,
+
+/* Will find all classes with Dr. J. Leidig as the 
+ * teacher with the name Database */
 write(' 2. Does Dr. J. Leidig teach Database?'), nl,
 findall(X, teaches('Dr. J. Leidig', 'Database'), Query2),
 write(Query2), nl,
+
+/* Will find the time and day for every class Dr. J.
+ * Leidig is scheduled for */
 write(' 3. What is Dr. J. Leidig’s schedule?'), nl,
 setof((T, D), scheduled('Dr. J. Leidig', T, D), Query3),
 write(Query3), nl,
+
+/* Will find the set of professors and classes with
+ * the time of 10:00am - 11:15am on the days 'TR' */
 write(' 4. Who is scheduled to teach what subject on TTH, 10am?'), nl,
 setof((P, S), scheduledsubject(P, '10:00 am - 11:15 am', 'TR', S), Query4),
 write(Query4), nl,
+
+/* Will find all the days and times that the two specified
+ * professors teach classes at the same time and day */
 write(' 5. When do Dr. J. Leidig and Dr. El-Said teach at the same time?'), nl,
 findall((T, D), teachsametime('Dr. J. Leidig', 'Dr. El-Said',T,D), Query5),
-write(Query5), nl,
-write('End').
+write(Query5), nl.
+
 ?- print_solution.
