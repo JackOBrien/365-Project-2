@@ -1,4 +1,4 @@
-/* Facts */
+/*------- Facts -------*/
 class('467', 'CS Project', '10:00 am - 10:50 am', 'MWF', 'MAK B1118', 'Dr. Engelsma', 'CS').
 class('463', 'IS Project', '2:00 pm - 2:50 pm', 'MWF', 'MAK D2123', 'Mr. Lange', 'IS').
 class('460', 'MIS', '10:00 am - 11:15 am', 'TR', 'MAK B1116', 'Dr. P. Leidig', 'IS').
@@ -36,3 +36,14 @@ student('Kara Thrace', '365', 'AI').
 student('Gaius Baltar', '463', 'IS Project').
 student('Gaius Baltar', '460', 'MIS').
 student('Gaius Baltar', '375', 'Wireless Networking Systems').
+
+/*------- Rules -------*/
+
+/* Professor P teaches class C */
+teaches(P, C) :- class(_,C,_,_,_,P,_).
+
+print_solution :-
+write('What does Dr. J. Leidig teach?'), nl,
+setof(X, teaches('Dr. J. Leidig', X), Query1),
+write(Query1), nl.
+?- print_solution. 
