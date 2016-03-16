@@ -1,4 +1,5 @@
 /*------- Facts -------*/
+/* class(Number, Name, Time, Days, Location, Professor, Major) */
 class('467', 'CS Project', '10:00 am - 10:50 am', 'MWF', 'MAK B1118', 'Dr. Engelsma', 'CS').
 class('463', 'IS Project', '2:00 pm - 2:50 pm', 'MWF', 'MAK D2123', 'Mr. Lange', 'IS').
 class('460', 'MIS', '10:00 am - 11:15 am', 'TR', 'MAK B1116', 'Dr. P. Leidig', 'IS').
@@ -24,6 +25,7 @@ class('661', 'Medical and BioInformatics', '6:00 pm - 8:50 pm', 'T', 'EC 612', '
 class('671', 'Information Visualization', '6:00 pm - 8:50 pm', 'R', 'EC 612', 'Dr. J. Leidig', 'CIS').
 class('691', 'MBI Capstone', '6:00 pm - 8:50 pm', 'M', 'EC 612', 'Dr. J. Leidig', 'CIS').
 
+/* student(Name, Enrolled in class number, Enrolled in class name */
 student('Jim', '467', 'CS Project').
 student('Jim', '452', 'OS Concepts').
 student('Jim', '457', 'Data Communications').
@@ -45,10 +47,13 @@ teaches(P, C) :- class(_,C,_,_,_,P,_).
 /* Class C is during time T on day D */
 during(C, T,D) :- class(_,C,T,D,_,_,_).
 
+/* Professor P is teaching a class during time T on day D */
 scheduled(P,T,D) :- teaches(P, C), during(C,T,D).
 
+/* Professor P is teaching class S during time T on day D */
 scheduledsubject(P,T,D,S) :- class(_,S,T,D,_,P,_).
 
+/* Professors A and B are both teaching at time T on day D  */
 teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,D).
 
 /*------- Goals -------*/
