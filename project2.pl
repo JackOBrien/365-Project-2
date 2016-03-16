@@ -47,6 +47,8 @@ during(C, T,D) :- class(_,C,T,D,_,_,_).
 
 scheduled(P,T,D) :- teaches(P, C), during(C,T,D).
 
+scheduledsubject(P,T,D,S) :- class(_,S,T,D,_,P,_).
+
 /*------- Goals -------*/
 print_solution :-
 write('What does Dr. J. Leidig teach?'), nl,
@@ -57,5 +59,8 @@ member('Database', Query1),*/
 write('What is Dr. J. Leidig’s schedule?'), nl,
 setof((T, D), scheduled('Dr. J. Leidig', T, D), Query2),
 write(Query2), nl,
+write('Who is scheduled to teach what subject on TTH, 10am?'), nl,
+setof((P, S), scheduledsubject(P, '10:00 am - 11:15 am', 'TR', S), Query3),
+write(Query3), nl,
 write('End').
 ?- print_solution.
