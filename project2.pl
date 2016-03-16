@@ -49,18 +49,23 @@ scheduled(P,T,D) :- teaches(P, C), during(C,T,D).
 
 scheduledsubject(P,T,D,S) :- class(_,S,T,D,_,P,_).
 
+teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,D).
+
 /*------- Goals -------*/
 print_solution :-
-write('What does Dr. J. Leidig teach?'), nl,
+write(' 1. What does Dr. J. Leidig teach?'), nl,
 setof(X, teaches('Dr. J. Leidig', X), Query1),
 write(Query1), nl,
-/*write('Does Dr. J. Leidig teach Database?'), nl,
-member('Database', Query1),*/
-write('What is Dr. J. Leidig’s schedule?'), nl,
+write(' 2. Does Dr. J. Leidig teach Database?'), nl,
+/*member('Database', Query1),*/
+write(' 3. What is Dr. J. Leidig’s schedule?'), nl,
 setof((T, D), scheduled('Dr. J. Leidig', T, D), Query2),
 write(Query2), nl,
-write('Who is scheduled to teach what subject on TTH, 10am?'), nl,
+write(' 4. Who is scheduled to teach what subject on TTH, 10am?'), nl,
 setof((P, S), scheduledsubject(P, '10:00 am - 11:15 am', 'TR', S), Query3),
 write(Query3), nl,
+write(' 5. When do Dr. J. Leidig and Dr. El-Said teach at the same time?'), nl,
+findall((T, D), teachsametime('Dr. J. Leidig', 'Dr. El-Said',T,D), Query4),
+write(Query4), nl,
 write('End').
 ?- print_solution.
