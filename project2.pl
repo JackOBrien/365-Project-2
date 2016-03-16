@@ -1,5 +1,3 @@
-:- use_module(library(lists)).
-
 /*------- Facts -------*/
 class('467', 'CS Project', '10:00 am - 10:50 am', 'MWF', 'MAK B1118', 'Dr. Engelsma', 'CS').
 class('463', 'IS Project', '2:00 pm - 2:50 pm', 'MWF', 'MAK D2123', 'Mr. Lange', 'IS').
