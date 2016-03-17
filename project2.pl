@@ -71,6 +71,8 @@ scheduledsubject(P,T,D,S) :- class(_,S,T,D,_,P,_).
 /* Professors A and B are both teaching at time T on day D  */
 teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,D).
 
+scheduleconflict(A,B) :- class(_,A,T,D,R,_,_),class(_,B,T,D,R,_,_), A \= B ;class(_,A,T,D,_,P,_),class(_,B,T,D,_,P,_),A \= B.
+
 /* Student A and B are both taking class C.  */
 takingsamecourse(A,B,C) :- taking(A,C), taking(B,C).
 
@@ -129,17 +131,11 @@ write(Query8), nl,
 /* This will find types of courses Gaius Baltar is taking. */
 write(' 9. What type of courses are Gaius Baltar taking?'), nl,
 setof((T), (taking('Gaius Baltar',C),coursetype(C,T)), Query9),
-write(Query9), nl.
-
-/* WIP //////////////////////////////////////////////////////////////////////// */
+write(Query9), nl,
 
 /* This will find what courses jim and pam have in common with each other. */
-/*write(' 10. Are there any scheduling conflicts of professors or locations?'), nl,
-findall((N), coursetype(N, 'CIS'), Query10),
-write(Query10), nl.*/
-
-
-
-/* WIP END //////////////////////////////////////////////////////////////////////// */
+write(' 10. Are there any scheduling conflicts of professors or locations?'), nl,
+setof((A,B), scheduleconflict(A,B), Query10),
+write(Query10), nl.
 
 ?- print_solution.
