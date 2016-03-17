@@ -74,6 +74,9 @@ teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,
 /* Student A and B are both taking class C.  */
 takingsamecourse(A,B,C) :- taking(A,C), taking(B,C).
 
+/* Student S is taking a course of type T */
+takingtype(S,T) :- taking(S,C), coursetype(C, T).
+
 /*------- Goals -------*/
 print_solution :-
 
@@ -119,7 +122,7 @@ write(Query7), nl,
 
 /* This will find all the individuals taking CS courses. */
 write(' 8. Who is taking CS Courses?'), nl,
-findall((S),(taking(S,N),coursetype(N, 'CS')), Query8),
+setof(S, takingtype(S, 'CS'), Query8),
 write(Query8), nl,
 
 
