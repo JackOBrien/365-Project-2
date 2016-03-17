@@ -18,7 +18,7 @@ class('451', 'Computer Architecture', '10:00 am - 10:50 am', 'MWF', 'MAK B1118',
 class('450', 'IS Project Management', '12:00 pm - 12:50 pm', 'MWF', 'MAK D1117', 'Dr. Schymik', 'IS').
 class('443', 'Software Development Tools', '11:00 am - 11:50 am', 'MWF', 'MAK B1124', 'Ms. Peterman', 'IS').
 class('437', 'Distributed Computing', '10:00 am - 10:50 am', 'MWF', 'MAK B1118', 'Dr. Engelsma', 'CS').
-class('375', 'Wireless Networking Systems', '6:00 pm - 7:50 pm', 'R', 'EC 612', 'Dr. El-Said', 'IS').
+class('375', 'Wireless Networking Systems', '6:00 pm - 8:50 pm', 'R', 'EC 612', 'Dr. El-Said', 'IS').
 class('371', 'Web Applicatino Programming', '4:00 pm - 5:15 pm', 'MW', 'MAK D1117', 'Dr. Scripps', 'CS').
 class('365', 'AI', '10:00 am - 11:15 am', 'TR', 'MAK D1117', 'Dr. J. Leidig', 'CS').
 class('361', 'System Programming', '4:00 pm - 5:15 pm', 'TR', 'MAK B1116', 'Dr. Trefftz', 'CS').
@@ -54,7 +54,13 @@ student('Gaius Baltar', '375', 'Wireless Networking Systems').
 teaches(P, C) :- class(_,C,_,_,_,P,_).
 
 /* Class C is during time T on day D */
-during(C, T,D) :- class(_,C,T,D,_,_,_).
+during(C,T,D) :- class(_,C,T,D,_,_,_).
+
+/* Student S is taking class C. */
+taking(S,C) :- student (S,_,C).
+
+/* course named N is of type T. */
+coursetype(N,T) :- class (_,N,_,_,_,_,T). 
 
 /* Professor P is teaching a class during time T on day D */
 scheduled(P,T,D) :- teaches(P, C), during(C,T,D).
@@ -64,6 +70,9 @@ scheduledsubject(P,T,D,S) :- class(_,S,T,D,_,P,_).
 
 /* Professors A and B are both teaching at time T on day D  */
 teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,D).
+
+/* Student A and B are both taking class C.  */
+takingsamecourse(A,B,C) :- taking(A,C), taking(B,C).
 
 /*------- Goals -------*/
 print_solution :-
@@ -96,6 +105,43 @@ write(Query4), nl,
  * professors teach classes at the same time and day */
 write(' 5. When do Dr. J. Leidig and Dr. El-Said teach at the same time?'), nl,
 findall((T, D), teachsametime('Dr. J. Leidig', 'Dr. El-Said',T,D), Query5),
-write(Query5), nl.
+write(Query5), nl,
+
+
+/* WIP //////////////////////////////////////////////////////////////////////// */
+
+/* This will find all the professors that teach at the same time as Dr. Leidig. */
+write(' 6. Who Teaches at the same time as Dr. J. Leidig?'), nl,
+setof(X, (teaches('Dr. J. Leidig', X), Query6),
+write(Query6), nl.
+
+
+/* WIP END //////////////////////////////////////////////////////////////////////// */
+
+/* This will find what courses jim and pam have in common with each other. */
+write(' 7. What courses do Jim and Pam have in common?'), nl,
+findall((C), takingsamecourse('Jim', 'Pam',C), Query7),
+write(Query7), nl,
+
+/* This will find what courses jim and pam have in common with each other. */
+write(' 8. Who is taking CS Courses?'), nl,
+findall((N), coursetype(N, 'CIS'), Query8),
+write(Query8), nl.
+
+
+/* This will find types of courses Gaius Baltar is taking. */
+write(' 9. What type of courses are Gaius Baltar taking?'), nl,
+findall((T), (taking('Gaius Baltar',C),courseType(C,T)), Query9),
+write(Query9), nl.
+
+/* WIP //////////////////////////////////////////////////////////////////////// */
+
+/* This will find what courses jim and pam have in common with each other. */
+write(' 10. Are there any scheduling conflicts of professors or locations?'), nl,
+findall((N), coursetype(N, 'CIS'), Query10),
+write(Query10), nl.
+
+
+/* WIP END //////////////////////////////////////////////////////////////////////// */
 
 ?- print_solution.
