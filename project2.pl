@@ -71,6 +71,9 @@ scheduledsubject(P,T,D,S) :- class(_,S,T,D,_,P,_).
 /* Professors A and B are both teaching at time T on day D  */
 teachsametime(A,B,T,D) :- teaches(A,X), during(X,T,D), teaches(B,Y), during(Y,T,D).
 
+/* There is a schedule comflict between classes A and B if
+ * A and B are during the same time on the same day and 
+ * either have the same professor or the same room. */
 scheduleconflict(A,B) :- class(_,A,T,D,R,_,_),class(_,B,T,D,R,_,_), A \= B ;class(_,A,T,D,_,P,_),class(_,B,T,D,_,P,_),A \= B.
 
 /* Student A and B are both taking class C.  */
@@ -133,7 +136,8 @@ write(' 9. What type of courses are Gaius Baltar taking?'), nl,
 setof((T), (taking('Gaius Baltar',C),coursetype(C,T)), Query9),
 write(Query9), nl,
 
-/* This will find what courses jim and pam have in common with each other. */
+/* Will find all pairs of classes where there is a schedule
+ * conflict, either by the professor or room being double booked */
 write(' 10. Are there any scheduling conflicts of professors or locations?'), nl,
 setof((A,B), scheduleconflict(A,B), Query10),
 write(Query10), nl.
