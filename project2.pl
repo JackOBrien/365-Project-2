@@ -57,10 +57,10 @@ teaches(P, C) :- class(_,C,_,_,_,P,_).
 during(C,T,D) :- class(_,C,T,D,_,_,_).
 
 /* Student S is taking class C. */
-taking(S,C) :- student (S,_,C).
+taking(S,C) :- student(S,_,C).
 
 /* course named N is of type T. */
-coursetype(N,T) :- class (_,N,_,_,_,_,T). 
+coursetype(N,T) :- class(_,N,_,_,_,_,T). 
 
 /* Professor P is teaching a class during time T on day D */
 scheduled(P,T,D) :- teaches(P, C), during(C,T,D).
@@ -107,39 +107,34 @@ write(' 5. When do Dr. J. Leidig and Dr. El-Said teach at the same time?'), nl,
 findall((T, D), teachsametime('Dr. J. Leidig', 'Dr. El-Said',T,D), Query5),
 write(Query5), nl,
 
-
-/* WIP //////////////////////////////////////////////////////////////////////// */
-
 /* This will find all the professors that teach at the same time as Dr. Leidig. */
 write(' 6. Who Teaches at the same time as Dr. J. Leidig?'), nl,
-setof(X, (teaches('Dr. J. Leidig', X), Query6),
-write(Query6), nl.
-
-
-/* WIP END //////////////////////////////////////////////////////////////////////// */
+findall(B, (teachsametime('Dr. J. Leidig',B,T,D), B \= 'Dr. J. Leidig'), Query6),
+write(Query6), nl,
 
 /* This will find what courses jim and pam have in common with each other. */
 write(' 7. What courses do Jim and Pam have in common?'), nl,
 findall((C), takingsamecourse('Jim', 'Pam',C), Query7),
 write(Query7), nl,
 
-/* This will find what courses jim and pam have in common with each other. */
+/* This will find all the individuals taking CS courses. */
 write(' 8. Who is taking CS Courses?'), nl,
-findall((N), coursetype(N, 'CIS'), Query8),
-write(Query8), nl.
+findall((S),(taking(S,N),coursetype(N, 'CS')), Query8),
+write(Query8), nl,
 
 
 /* This will find types of courses Gaius Baltar is taking. */
 write(' 9. What type of courses are Gaius Baltar taking?'), nl,
-findall((T), (taking('Gaius Baltar',C),courseType(C,T)), Query9),
+setof((T), (taking('Gaius Baltar',C),coursetype(C,T)), Query9),
 write(Query9), nl.
 
 /* WIP //////////////////////////////////////////////////////////////////////// */
 
 /* This will find what courses jim and pam have in common with each other. */
-write(' 10. Are there any scheduling conflicts of professors or locations?'), nl,
+/*write(' 10. Are there any scheduling conflicts of professors or locations?'), nl,
 findall((N), coursetype(N, 'CIS'), Query10),
-write(Query10), nl.
+write(Query10), nl.*/
+
 
 
 /* WIP END //////////////////////////////////////////////////////////////////////// */
